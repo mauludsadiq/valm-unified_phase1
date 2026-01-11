@@ -1,0 +1,86 @@
+{
+  "adapters": {
+    "adaptation": {
+      "action": {
+        "error": "no compatible run_ttt signature for integrated smoke; got signature=(corpus_path: 'str', ckpt_path: 'str', out_path: 'str', cfg: 'TTTcfg', device: 'str' = 'cpu') -> 'TTTResult'. This anchor requires (corpus_path, ckpt_path, out_path, cfg[, device]) and valm-unified_phase1 does not ship a canonical ckpt/corpus/cfg for execution.",
+        "status": "skipped"
+      },
+      "anchor": {
+        "module": "surprise_ttt.ttt",
+        "symbol": "run_ttt"
+      },
+      "name": "adaptation",
+      "repo_path": "/Users/g.bogans/Downloads/surprise_ttt_repo",
+      "syspath_prefix": [
+        "/Users/g.bogans/Downloads/surprise_ttt_repo/src",
+        "/Users/g.bogans/Downloads/surprise_ttt_repo"
+      ],
+      "vcs": {}
+    },
+    "capability": {
+      "action": {
+        "error": null,
+        "status": "ok"
+      },
+      "anchor": {
+        "module": "llm_nature",
+        "symbol": "__file__"
+      },
+      "name": "capability",
+      "repo_path": "/Users/g.bogans/Downloads/llm_nature_public",
+      "syspath_prefix": [
+        "/Users/g.bogans/Downloads/llm_nature_public"
+      ],
+      "vcs": {}
+    },
+    "specialization": {
+      "action": {
+        "error": null,
+        "status": "ok"
+      },
+      "anchor": {
+        "module": "smallchat_sft_dpo",
+        "symbol": "__file__"
+      },
+      "name": "specialization",
+      "repo_path": "/Users/g.bogans/Downloads/smallchat-sft-dpo-repo",
+      "syspath_prefix": [
+        "/Users/g.bogans/Downloads/smallchat-sft-dpo-repo/src",
+        "/Users/g.bogans/Downloads/smallchat-sft-dpo-repo"
+      ],
+      "vcs": {}
+    },
+    "verification": {
+      "action": {
+        "error": null,
+        "status": "ok"
+      },
+      "anchor": {
+        "module": "cbench.verifier_v0_1",
+        "symbol": "verify_artifacts"
+      },
+      "name": "verification",
+      "repo_path": "/Users/g.bogans/Downloads/cbench_v0_1_repo",
+      "syspath_prefix": [
+        "/Users/g.bogans/Downloads/cbench_v0_1_repo"
+      ],
+      "vcs": {}
+    }
+  },
+  "created_utc": "2026-01-11T10:11:51+00:00",
+  "load_witness": {
+    "created_utc": "2026-01-11T10:11:50+00:00",
+    "path": "runs/unified_load_witness.json",
+    "sha256": "bfd6de3612b61666aebac71062b7acbb63e2303a813623eed15ae560507d7634",
+    "witness_type": "valm_unified_load_witness",
+    "witness_version": "0.1.0"
+  },
+  "ok": true,
+  "python": {
+    "executable": "/Users/g.bogans/Downloads/valm-unified_phase1/.venv/bin/python",
+    "platform": "macOS-15.5-arm64-arm-64bit",
+    "version": "3.9.6 (default, Apr 30 2025, 02:07:17) \n[Clang 17.0.0 (clang-1700.0.13.5)]"
+  },
+  "witness_type": "valm_integrated_run_witness",
+  "witness_version": "0.1.0"
+}

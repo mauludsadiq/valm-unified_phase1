@@ -1,9 +1,73 @@
 {
+  "adapters": {
+    "adaptation": {
+      "anchor": {
+        "module": "surprise_ttt.ttt",
+        "symbol": "run_ttt"
+      },
+      "import_error": null,
+      "module_file": "/Users/g.bogans/Downloads/surprise_ttt_repo/src/surprise_ttt/ttt.py",
+      "module_sha256": "00cf7e7be34c5d76c807eaae01d91e1c8487904b50e6e585a7214eafffb17959",
+      "repo_path": "/Users/g.bogans/Downloads/surprise_ttt_repo",
+      "symbol_error": null,
+      "symbol_present": true,
+      "syspath_prefix": [
+        "/Users/g.bogans/Downloads/surprise_ttt_repo/src",
+        "/Users/g.bogans/Downloads/surprise_ttt_repo"
+      ]
+    },
+    "capability": {
+      "anchor": {
+        "module": "llm_nature",
+        "symbol": "__file__"
+      },
+      "import_error": null,
+      "module_file": "/Users/g.bogans/Downloads/llm_nature_public/llm_nature/__init__.py",
+      "module_sha256": "77c095f7ba63ad57fef5f4f3eb510789e19b2bc329d734f647d43cd6b5f47ee6",
+      "repo_path": "/Users/g.bogans/Downloads/llm_nature_public",
+      "symbol_error": null,
+      "symbol_present": true,
+      "syspath_prefix": [
+        "/Users/g.bogans/Downloads/llm_nature_public"
+      ]
+    },
+    "specialization": {
+      "anchor": {
+        "module": "smallchat_sft_dpo",
+        "symbol": "__file__"
+      },
+      "import_error": null,
+      "module_file": "/Users/g.bogans/Downloads/smallchat-sft-dpo-repo/src/smallchat_sft_dpo/__init__.py",
+      "module_sha256": "75ad4f4c2943325f88064ad2beae890b59674be2bf0404b30afc5584dc4de4bb",
+      "repo_path": "/Users/g.bogans/Downloads/smallchat-sft-dpo-repo",
+      "symbol_error": null,
+      "symbol_present": true,
+      "syspath_prefix": [
+        "/Users/g.bogans/Downloads/smallchat-sft-dpo-repo/src",
+        "/Users/g.bogans/Downloads/smallchat-sft-dpo-repo"
+      ]
+    },
+    "verification": {
+      "anchor": {
+        "module": "cbench.verifier_v0_1",
+        "symbol": "verify_artifacts"
+      },
+      "import_error": null,
+      "module_file": "/Users/g.bogans/Downloads/cbench_v0_1_repo/cbench/verifier_v0_1.py",
+      "module_sha256": "b93d725cafb611e4883a87fefae496b179fb7fa9d174b4b507a0b52b1b1fde6d",
+      "repo_path": "/Users/g.bogans/Downloads/cbench_v0_1_repo",
+      "symbol_error": null,
+      "symbol_present": true,
+      "syspath_prefix": [
+        "/Users/g.bogans/Downloads/cbench_v0_1_repo"
+      ]
+    }
+  },
   "config": {
     "path": "configs/unified.yaml",
     "sha256": "a5795d7f71dae2aa71002044e6103a253ca2fdcf0167941aeade84b24c77b237"
   },
-  "created_utc": "2026-01-11T09:40:12+00:00",
+  "created_utc": "2026-01-11T10:11:50+00:00",
   "python": {
     "executable": "/Users/g.bogans/Downloads/valm-unified_phase1/.venv/bin/python",
     "platform": "macOS-15.5-arm64-arm-64bit",
@@ -35,6 +99,12 @@
         "ok": true,
         "repo_path": "/Users/g.bogans/Downloads/surprise_ttt_repo",
         "stub": false
+      },
+      "vcs": {
+        "describe": "v0.0.2-ttt-import-green",
+        "dirty": false,
+        "error": null,
+        "head": "5eda6d988af4f0579839c9f47f326d7b031afb4e"
       }
     },
     "capability": {
@@ -62,6 +132,12 @@
         "ok": true,
         "repo_path": "/Users/g.bogans/Downloads/llm_nature_public",
         "stub": false
+      },
+      "vcs": {
+        "describe": "28e008a",
+        "dirty": false,
+        "error": null,
+        "head": "28e008a7fd6ae8c4c17bbe551d7c1c36659d0ea6"
       }
     },
     "specialization": {
@@ -89,6 +165,12 @@
         "ok": true,
         "repo_path": "/Users/g.bogans/Downloads/smallchat-sft-dpo-repo",
         "stub": false
+      },
+      "vcs": {
+        "describe": "7978887",
+        "dirty": false,
+        "error": null,
+        "head": "79788870ac8643051d52c7ac460575a8f602ee4d"
       }
     },
     "verification": {
@@ -126,6 +208,12 @@
         "ok": true,
         "repo_path": "/Users/g.bogans/Downloads/cbench_v0_1_repo",
         "stub": false
+      },
+      "vcs": {
+        "describe": "v0.1.1-epsI-knife-edge-green2-5-gb9d6aa4",
+        "dirty": false,
+        "error": null,
+        "head": "b9d6aa48c92509c62e8eefcab1c29cbd69208127"
       }
     }
   },

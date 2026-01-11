@@ -5,6 +5,7 @@ import importlib
 import json
 import platform
 import sys
+import subprocess
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -13,6 +14,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import yaml
 
 from valm.unified.system import VALMUnified
+from valm.unified.adapters_witness import adapter_anchor_witness
 
 
 def _sha256_bytes(b: bytes) -> str:
@@ -31,6 +33,39 @@ def _utc_now_iso() -> str:
 
 def _safe_module_file(mod: Any) -> Optional[str]:
     return getattr(mod, "__file__", None)
+
+
+def _git_info(repo: Path) -> Dict[str, Any]:
+    out: Dict[str, Any] = {"head": None, "describe": None, "dirty": None, "error": None}
+    try:
+        head = subprocess.run(
+            ["git", "rev-parse", "HEAD"],
+            cwd=str(repo),
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        ).stdout.strip()
+        out["head"] = head
+
+        desc = subprocess.run(
+            ["git", "describe", "--tags", "--always", "--dirty=-dirty"],
+            cwd=str(repo),
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        ).stdout.strip()
+        out["describe"] = desc
+
+        dirty_rc = subprocess.run(
+            ["git", "diff", "--quiet"],
+            cwd=str(repo),
+        ).returncode
+        out["dirty"] = bool(dirty_rc != 0)
+    except Exception as e:
+        out["error"] = f"{type(e).__name__}({e!r})"
+    return out
 
 
 def _import_and_locate(module: str) -> Tuple[Optional[str], Optional[str], Optional[str]]:
@@ -100,6 +135,7 @@ def make_unified_load_witness(config_path: str) -> Dict[str, Any]:
             "enabled": bool(scfg.get("enabled", False)),
             "allow_stub": bool(scfg.get("allow_stub", False)),
             "repo_path": scfg.get("repo_path"),
+            "vcs": _git_info(Path(scfg.get("repo_path")).resolve()),
             "status": rep,
             "imports": import_rows,
         }
@@ -118,6 +154,7 @@ def make_unified_load_witness(config_path: str) -> Dict[str, Any]:
             "sha256": _sha256_bytes(cfg_text.encode("utf-8")),
         },
         "systems": per_system,
+        "adapters": adapter_anchor_witness(systems_report),
     }
     return out
 

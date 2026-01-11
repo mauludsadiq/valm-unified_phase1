@@ -20,9 +20,9 @@ systems:
     allow_stub: false
     repo_path: ../surprise_ttt_repo
     import:
-    - module: conftest
+    - module: surprise_ttt.ttt
       symbols:
-      - __file__
+      - run_ttt
   verification:
     enabled: true
     allow_stub: true

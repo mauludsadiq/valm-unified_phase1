@@ -9,9 +9,21 @@ from typing import Any, Dict, List
 
 
 def list_top_level_modules(repo_path: Path) -> List[str]:
+    repo_path = Path(repo_path).resolve()
+    repo_path = repo_path.resolve()
+    src_dir = repo_path / "src"
+    scan_dir = src_dir if src_dir.is_dir() else repo_path
+    import sys
+    if src_dir.is_dir():
+        sys.path.insert(0, str(src_dir))
+    sys.path.insert(0, str(repo_path))
+
+    src_dir = repo_path / "src"
+    if src_dir.is_dir():
+        sys.path.insert(0, str(src_dir))
     sys.path.insert(0, str(repo_path))
     try:
-        return sorted({m.name for m in pkgutil.iter_modules([str(repo_path)])})
+        return sorted({m.name for m in pkgutil.iter_modules([str(scan_dir)])})
     finally:
         sys.path.pop(0)
 

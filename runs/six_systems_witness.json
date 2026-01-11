@@ -1,31 +1,51 @@
 {
   "systems": {
     "cbench": {
-      "error": "missing anchor",
-      "executed": false,
-      "status": "error"
+      "action": {
+        "error": "missing anchor",
+        "executed": false,
+        "status": "error"
+      }
     },
     "kv_memory": {
-      "error": "missing anchor",
-      "executed": false,
-      "status": "error"
+      "action": {
+        "error": "missing anchor",
+        "executed": false,
+        "status": "error"
+      }
     },
     "llm_nature": {
-      "error": "missing anchor",
-      "executed": false,
-      "status": "error"
+      "action": {
+        "error": "missing anchor",
+        "executed": false,
+        "status": "error"
+      }
     },
     "mlp_xor": {
-      "error": "missing anchor",
-      "executed": false,
-      "status": "error"
+      "action": {
+        "error": "missing anchor",
+        "executed": false,
+        "status": "error"
+      }
     },
     "smallchat": {
-      "error": "missing anchor",
-      "executed": false,
-      "status": "error"
+      "action": {
+        "error": "missing anchor",
+        "executed": false,
+        "status": "error"
+      }
     },
     "surprise_ttt": {
+      "action": {
+        "executed": false,
+        "missing": [],
+        "module": "surprise_ttt.ttt",
+        "note": "anchor resolved; executed depends on canonical fixture triple (corpus, ckpt, cfg)",
+        "repo_path": "../surprise_ttt_repo",
+        "signature": "(corpus_path: 'str', ckpt_path: 'str', out_path: 'str', cfg: 'TTTcfg', device: 'str' = 'cpu') -> 'TTTResult'",
+        "status": "ok",
+        "symbol": "run_ttt"
+      },
       "error": "missing anchor",
       "executed": false,
       "status": "error"

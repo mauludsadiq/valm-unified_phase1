@@ -1,4 +1,76 @@
+
 from __future__ import annotations
+
+import sys
+import inspect
+import importlib
+from pathlib import Path
+
+def _probe_surprise_ttt_anchor(repo_path):
+    if not repo_path:
+        return {
+            "status": "error",
+            "executed": False,
+            "error": "repo_path missing for surprise_ttt",
+        }
+
+    rp = Path(str(repo_path))
+    sp = rp / "src"
+    sys.path.insert(0, str(sp))
+    sys.path.insert(0, str(rp))
+
+    try:
+        m = importlib.import_module("surprise_ttt.ttt")
+        fn = getattr(m, "run_ttt")
+        sig = inspect.signature(fn)
+        params = list(sig.parameters.keys())
+        required = ["corpus_path", "ckpt_path", "out_path", "cfg"]
+        ok = all(r in params for r in required)
+        return {
+            "status": "ok" if ok else "error",
+            "executed": False,
+            "module": "surprise_ttt.ttt",
+            "symbol": "run_ttt",
+            "signature": str(sig),
+            "note": "anchor resolved; executed depends on canonical fixture triple (corpus, ckpt, cfg)",
+            "repo_path": str(rp),
+            "missing": [] if ok else ["signature_fields"],
+        }
+    except Exception as e:
+        return {
+            "status": "error",
+            "executed": False,
+            "error": f"anchor import failed: {e}",
+            "repo_path": str(rp),
+        }
+
+
+
+def _normalize_action_wrappers(systems: dict) -> dict:
+    out = {}
+    for k, v in (systems or {}).items():
+        if isinstance(v, dict) and "action" in v:
+            out[k] = v
+        else:
+            out[k] = {"action": v}
+    return out
+
+
+import sys
+import inspect
+import importlib
+from pathlib import Path
+
+
+def _resolve_surprise_ttt_anchor_from_repo(repo_path: str):
+    rp = Path(repo_path)
+    sp = rp / "src"
+    sys.path.insert(0, str(sp))
+    sys.path.insert(0, str(rp))
+    m = importlib.import_module("surprise_ttt.ttt")
+    fn = getattr(m, "run_ttt")
+    sig = inspect.signature(fn)
+    return {"module": "surprise_ttt.ttt", "symbol": "run_ttt", "signature": str(sig)}
 
 from dataclasses import dataclass
 from pathlib import Path
@@ -153,6 +225,10 @@ def resolve_anchor_only(anchor: Dict[str, Any]) -> Dict[str, Any]:
     return {"status": "ok", "executed": False, "signature": sig, "note": "anchor resolved"}
 
 def build_six_systems_witness(load_witness: Dict[str, Any]) -> Dict[str, Any]:
+    from pathlib import Path
+    import json
+    if isinstance(load_witness, (str, Path)):
+        load_witness = json.loads(Path(load_witness).read_text(encoding="utf-8"))
     cfg = (load_witness or {}).get("config", {}) or {}
     anchors = (load_witness or {}).get("anchors", {}) or {}
     adapters = (load_witness or {}).get("adapters", {}) or {}
@@ -178,5 +254,20 @@ def build_six_systems_witness(load_witness: Dict[str, Any]) -> Dict[str, Any]:
             out["systems"][name] = {"anchor": anchor, "action": run_surprise_ttt_action(anchor, cfg)}
         else:
             out["systems"][name] = {"anchor": anchor, "action": resolve_anchor_only(anchor)}
+
+    systems = out.get("systems", {})
+    if isinstance(systems, dict):
+        cur = systems.get("surprise_ttt")
+        if isinstance(cur, dict):
+            act = cur.get("action") if isinstance(cur.get("action"), dict) else cur
+            if isinstance(act, dict) and act.get("status") == "error" and act.get("error") == "missing anchor":
+                rp = None
+                lw = load_witness
+                if isinstance(lw, dict):
+                    sysinfo = (lw.get("systems") or {}).get("adaptation") or (lw.get("systems") or {}).get("surprise_ttt")
+                    if isinstance(sysinfo, dict):
+                        rp = sysinfo.get("repo_path")
+                cur["action"] = _probe_surprise_ttt_anchor(rp)
+                systems["surprise_ttt"] = cur
 
     return out

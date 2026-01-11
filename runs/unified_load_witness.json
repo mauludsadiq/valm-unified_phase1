@@ -1,0 +1,134 @@
+{
+  "config": {
+    "path": "configs/unified.yaml",
+    "sha256": "a5795d7f71dae2aa71002044e6103a253ca2fdcf0167941aeade84b24c77b237"
+  },
+  "created_utc": "2026-01-11T09:36:00+00:00",
+  "python": {
+    "executable": "/Users/g.bogans/Downloads/valm-unified_phase1/.venv/bin/python",
+    "platform": "macOS-15.5-arm64-arm-64bit",
+    "version": "3.9.6 (default, Apr 30 2025, 02:07:17) \n[Clang 17.0.0 (clang-1700.0.13.5)]"
+  },
+  "systems": {
+    "adaptation": {
+      "allow_stub": false,
+      "enabled": true,
+      "imports": [
+        {
+          "import_error": "ModuleNotFoundError(ModuleNotFoundError(\"No module named 'surprise_ttt'\"))",
+          "module": "surprise_ttt.ttt",
+          "module_file": null,
+          "module_sha256": null,
+          "symbols": [
+            {
+              "error": "ModuleNotFoundError(ModuleNotFoundError(\"No module named 'surprise_ttt'\"))",
+              "present": false,
+              "symbol": "run_ttt"
+            }
+          ]
+        }
+      ],
+      "repo_path": "../surprise_ttt_repo",
+      "status": {
+        "error_count": 1,
+        "loaded_count": 1,
+        "ok": false,
+        "repo_path": "/Users/g.bogans/Downloads/surprise_ttt_repo",
+        "stub": false
+      }
+    },
+    "capability": {
+      "allow_stub": true,
+      "enabled": true,
+      "imports": [
+        {
+          "import_error": null,
+          "module": "llm_nature",
+          "module_file": "/Users/g.bogans/Downloads/llm_nature_public/llm_nature/__init__.py",
+          "module_sha256": "77c095f7ba63ad57fef5f4f3eb510789e19b2bc329d734f647d43cd6b5f47ee6",
+          "symbols": [
+            {
+              "error": null,
+              "present": true,
+              "symbol": "__file__"
+            }
+          ]
+        }
+      ],
+      "repo_path": "../llm_nature_public",
+      "status": {
+        "error_count": 0,
+        "loaded_count": 1,
+        "ok": true,
+        "repo_path": "/Users/g.bogans/Downloads/llm_nature_public",
+        "stub": false
+      }
+    },
+    "specialization": {
+      "allow_stub": false,
+      "enabled": true,
+      "imports": [
+        {
+          "import_error": null,
+          "module": "scripts",
+          "module_file": "/Users/g.bogans/Downloads/smallchat-sft-dpo-repo/scripts/__init__.py",
+          "module_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "symbols": [
+            {
+              "error": null,
+              "present": true,
+              "symbol": "__file__"
+            }
+          ]
+        }
+      ],
+      "repo_path": "../smallchat-sft-dpo-repo",
+      "status": {
+        "error_count": 0,
+        "loaded_count": 1,
+        "ok": true,
+        "repo_path": "/Users/g.bogans/Downloads/smallchat-sft-dpo-repo",
+        "stub": false
+      }
+    },
+    "verification": {
+      "allow_stub": true,
+      "enabled": true,
+      "imports": [
+        {
+          "import_error": null,
+          "module": "cbench.verifier_v0_1",
+          "module_file": "/Users/g.bogans/Downloads/cbench_v0_1_repo/cbench/verifier_v0_1.py",
+          "module_sha256": "b93d725cafb611e4883a87fefae496b179fb7fa9d174b4b507a0b52b1b1fde6d",
+          "symbols": [
+            {
+              "error": null,
+              "present": true,
+              "symbol": "verify_artifacts"
+            },
+            {
+              "error": null,
+              "present": true,
+              "symbol": "try_schema_validate"
+            },
+            {
+              "error": null,
+              "present": true,
+              "symbol": "verify_signature"
+            }
+          ]
+        }
+      ],
+      "repo_path": "../cbench_v0_1_repo",
+      "status": {
+        "error_count": 0,
+        "loaded_count": 3,
+        "ok": true,
+        "repo_path": "/Users/g.bogans/Downloads/cbench_v0_1_repo",
+        "stub": false
+      }
+    }
+  },
+  "witness_type": "valm_unified_load_witness",
+  "witness_version": "0.1.0"
+}

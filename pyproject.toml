@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "valm-unified"
+version = "0.1.0"
+description = "Verifiable Adaptive Language Models - Unified Framework"
+authors = [
+    {name = "VALM Team", email = "team@valm.ai"}
+]
+license = {text = "Apache-2.0"}
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "torch>=2.0.0",
+    "pydantic>=2.0.0",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "mypy>=1.0.0",
+    "ruff>=0.1.0",
+]
+verification = [
+    "cryptography>=41.0.0",
+]
+memory = [
+    "faiss-cpu>=1.7.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+
+[tool.ruff]
+target-version = "py39"
+line-length = 88
+select = ["E", "W", "F", "I", "B"]
+ignore = ["E501", "B008"]
+
+[tool.black]
+line-length = 88
+target-version = ['py39']

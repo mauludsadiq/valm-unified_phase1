@@ -1,0 +1,51 @@
+system_name: "valm-unified"
+version: "1.0.0"
+
+memory_type: "hybrid"
+
+kv_memory:
+  M: 256
+  g_write: 0.9
+  tau_reuse: 0.8
+  tau_novel: 0.3
+  L: 4096
+  epsilon: 1e-8
+
+param_memory:
+  trust_radius: 0.05
+  learn_threshold: 0.1
+  eta_base: 0.001
+  lambda_base: 0.01
+  alpha: 0.9
+  gate_type: "sigmoid"
+  beta_gate: 1.0
+  tau_gate: 0.5
+
+verification:
+  thresholds:
+    epsilon_S: 0.2
+    epsilon_I: 0.2
+    epsilon_F: 0.2
+    max_rti_violations: 0
+  require_signature: false
+
+registry:
+  merkle_depth: 32
+  storage_type: "sqlite"
+  storage_path: "valm_registry.db"
+  backup_interval: 1000
+  witness_interval: 100
+
+kv_to_param_threshold: 0.7
+param_to_kv_threshold: 0.9
+
+batch_size: 1
+device: "cpu"
+dtype: "float32"
+
+log_level: "INFO"
+log_memory_events: true
+log_verification: true
+
+validate_on_update: true
+revert_on_failure: true

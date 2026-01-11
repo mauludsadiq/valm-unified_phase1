@@ -6,23 +6,23 @@ systems:
     import:
     - module: llm_nature
       symbols:
-      - __version__
+      - __file__
   specialization:
     enabled: true
-    allow_stub: true
+    allow_stub: false
     repo_path: ../smallchat-sft-dpo-repo
     import:
-    - module: smallchat
+    - module: scripts
       symbols:
-      - __version__
+      - __file__
   adaptation:
     enabled: true
-    allow_stub: true
+    allow_stub: false
     repo_path: ../surprise_ttt_repo
     import:
-    - module: surprise_ttt
+    - module: conftest
       symbols:
-      - __version__
+      - __file__
   verification:
     enabled: true
     allow_stub: true
@@ -30,4 +30,6 @@ systems:
     import:
     - module: cbench.verifier_v0_1
       symbols:
-      - VERIFY_SYMBOL_HERE
+      - verify_artifacts
+      - try_schema_validate
+      - verify_signature

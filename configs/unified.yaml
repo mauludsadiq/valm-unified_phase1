@@ -2,31 +2,35 @@ systems:
   capability:
     enabled: true
     allow_stub: true
-    repo_path: "../llm_nature"
+    repo_path: ../llm_nature
     import:
-      - module: "llm_nature"
-        symbols: ["__version__"]
-
+    - module: llm_nature
+      symbols:
+      - __version__
   specialization:
     enabled: true
     allow_stub: true
-    repo_path: "../smallchat-sft-dpo"
+    repo_path: ../smallchat-sft-dpo
     import:
-      - module: "smallchat"
-        symbols: ["__version__"]
-
+    - module: smallchat
+      symbols:
+      - __version__
   adaptation:
     enabled: true
     allow_stub: true
-    repo_path: "../surprise_ttt_repo"
+    repo_path: ../surprise_ttt_repo
     import:
-      - module: "surprise_ttt"
-        symbols: ["__version__"]
-
+    - module: surprise_ttt
+      symbols:
+      - __version__
   verification:
     enabled: true
     allow_stub: true
-    repo_path: "../cbench_repo"
+    repo_path: ../cbench_v0_1_repo
     import:
-      - module: "cbench"
-        symbols: ["__version__"]
+    - module: cbench.verifier_v0_1
+      symbols:
+      - verify_witness
+    - module: cbench.schema_v0_1
+      symbols:
+      - validate_schema

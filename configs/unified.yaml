@@ -2,7 +2,7 @@ systems:
   capability:
     enabled: true
     allow_stub: true
-    repo_path: ../llm_nature
+    repo_path: ../llm_nature_public
     import:
     - module: llm_nature
       symbols:
@@ -10,7 +10,7 @@ systems:
   specialization:
     enabled: true
     allow_stub: true
-    repo_path: ../smallchat-sft-dpo
+    repo_path: ../smallchat-sft-dpo-repo
     import:
     - module: smallchat
       symbols:
@@ -30,7 +30,4 @@ systems:
     import:
     - module: cbench.verifier_v0_1
       symbols:
-      - verify_witness
-    - module: cbench.schema_v0_1
-      symbols:
-      - validate_schema
+      - VERIFY_SYMBOL_HERE

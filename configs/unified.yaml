@@ -33,3 +33,11 @@ systems:
       - verify_artifacts
       - try_schema_validate
       - verify_signature
+integrated:
+  six_systems_smoke:
+    surprise_ttt:
+      corpus_path: null
+      ckpt_path: null
+      cfg_path: null
+      device: cpu
+    cbench: {}

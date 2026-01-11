@@ -65,9 +65,9 @@
   },
   "config": {
     "path": "configs/unified.yaml",
-    "sha256": "a5795d7f71dae2aa71002044e6103a253ca2fdcf0167941aeade84b24c77b237"
+    "sha256": "0de70d35411d72ee9d2fb707aac60dd37f62a0f9fedda7d6c641fce95d0cb15e"
   },
-  "created_utc": "2026-01-11T15:10:37+00:00",
+  "created_utc": "2026-01-11T15:27:42+00:00",
   "python": {
     "executable": "/Users/g.bogans/Downloads/valm-unified_phase1/.venv/bin/python",
     "platform": "macOS-15.5-arm64-arm-64bit",
@@ -79,14 +79,14 @@
       "enabled": true,
       "imports": [
         {
-          "import_error": null,
+          "import_error": "ModuleNotFoundError(ModuleNotFoundError(\"No module named 'surprise_ttt'\"))",
           "module": "surprise_ttt.ttt",
-          "module_file": "/Users/g.bogans/Downloads/surprise_ttt_repo/src/surprise_ttt/ttt.py",
-          "module_sha256": "00cf7e7be34c5d76c807eaae01d91e1c8487904b50e6e585a7214eafffb17959",
+          "module_file": null,
+          "module_sha256": null,
           "symbols": [
             {
-              "error": null,
-              "present": true,
+              "error": "ModuleNotFoundError(ModuleNotFoundError(\"No module named 'surprise_ttt'\"))",
+              "present": false,
               "symbol": "run_ttt"
             }
           ]
@@ -94,9 +94,9 @@
       ],
       "repo_path": "../surprise_ttt_repo",
       "status": {
-        "error_count": 0,
+        "error_count": 1,
         "loaded_count": 1,
-        "ok": true,
+        "ok": false,
         "repo_path": "/Users/g.bogans/Downloads/surprise_ttt_repo",
         "stub": false
       },

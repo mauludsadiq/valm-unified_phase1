@@ -1,0 +1,35 @@
+{
+  "systems": {
+    "cbench": {
+      "error": "missing anchor",
+      "executed": false,
+      "status": "error"
+    },
+    "kv_memory": {
+      "error": "missing anchor",
+      "executed": false,
+      "status": "error"
+    },
+    "llm_nature": {
+      "error": "missing anchor",
+      "executed": false,
+      "status": "error"
+    },
+    "mlp_xor": {
+      "error": "missing anchor",
+      "executed": false,
+      "status": "error"
+    },
+    "smallchat": {
+      "error": "missing anchor",
+      "executed": false,
+      "status": "error"
+    },
+    "surprise_ttt": {
+      "error": "missing anchor",
+      "executed": false,
+      "status": "error"
+    }
+  },
+  "version": "0.1.0"
+}

@@ -18,7 +18,7 @@ systems:
   adaptation:
     enabled: true
     allow_stub: false
-    repo_path: ../surprise_ttt_repo
+    repo_path: /Users/g.bogans/Downloads/surprise_ttt_repo
     import:
     - module: surprise_ttt.ttt
       symbols:

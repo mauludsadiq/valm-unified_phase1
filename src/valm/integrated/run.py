@@ -172,3 +172,136 @@ def write_integrated_run_witness(load_witness_path: str, out_path: str) -> Dict[
     out_p.parent.mkdir(parents=True, exist_ok=True)
     out_p.write_text(json.dumps(w, sort_keys=True, indent=2) + "\n", encoding="utf-8")
     return w
+
+
+import hashlib
+from pathlib import Path
+from typing import Any, Dict, Optional
+
+def _sha256_file(p: Path) -> str:
+    h = hashlib.sha256()
+    with p.open("rb") as f:
+        for chunk in iter(lambda: f.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+def _read_cfg_data(cfg_path: Path) -> Dict[str, Any]:
+    if cfg_path.suffix.lower() in (".json",):
+        import json
+        return json.loads(cfg_path.read_text(encoding="utf-8"))
+    if cfg_path.suffix.lower() in (".yml", ".yaml"):
+        import yaml
+        return yaml.safe_load(cfg_path.read_text(encoding="utf-8")) or {}
+    raise ValueError(f"unsupported cfg file type: {cfg_path.name}")
+
+def _resolve_ttt_fixture(load_cfg: Dict[str, Any]) -> Dict[str, Optional[str]]:
+    integ = (load_cfg or {}).get("integrated", {}) or {}
+    a = (integ.get("adaptation_smoke", {}) or {})
+    return {
+        "corpus_path": a.get("corpus_path"),
+        "ckpt_path": a.get("ckpt_path"),
+        "cfg_path": a.get("cfg_path"),
+        "device": a.get("device", "cpu"),
+    }
+
+def _run_adaptation_action(anchor: Dict[str, Any], load_cfg: Dict[str, Any]) -> Dict[str, Any]:
+    import importlib
+    import inspect
+    import tempfile
+
+    mod = importlib.import_module(anchor["module"])
+    fn = getattr(mod, anchor["symbol"])
+    sig = inspect.signature(fn)
+    params = list(sig.parameters.keys())
+
+    required = ["corpus_path", "ckpt_path", "out_path", "cfg"]
+    if not all(r in params for r in required):
+        return {
+            "status": "skipped",
+            "executed": False,
+            "signature": str(sig),
+            "error": f"unexpected run_ttt signature; need params {required}",
+        }
+
+    fx = _resolve_ttt_fixture(load_cfg)
+    root = Path.cwd()
+
+    corpus = (root / fx["corpus_path"]).resolve() if fx["corpus_path"] else None
+    ckpt = (root / fx["ckpt_path"]).resolve() if fx["ckpt_path"] else None
+    cfgp = (root / fx["cfg_path"]).resolve() if fx["cfg_path"] else None
+
+    missing = []
+    for name, p in [("corpus_path", corpus), ("ckpt_path", ckpt), ("cfg_path", cfgp)]:
+        if p is None or not p.exists():
+            missing.append(name)
+
+    if missing:
+        return {
+            "status": "ok",
+            "executed": False,
+            "signature": str(sig),
+            "note": "anchor resolved; canonical ttt fixture triple not present",
+            "missing": missing,
+            "expected": {
+                "corpus_path": str(corpus) if corpus else None,
+                "ckpt_path": str(ckpt) if ckpt else None,
+                "cfg_path": str(cfgp) if cfgp else None,
+            },
+        }
+
+    cfg_data = _read_cfg_data(cfgp)
+
+    cfg_cls = getattr(mod, "TTTcfg", None)
+    if cfg_cls is None:
+        return {
+            "status": "ok",
+            "executed": False,
+            "signature": str(sig),
+            "note": "anchor resolved; TTTcfg class not found in module",
+            "cfg_path": str(cfgp),
+        }
+
+    cfg_obj = cfg_cls(**cfg_data)
+
+    out_dir = Path(tempfile.mkdtemp(prefix="valm_ttt_smoke_"))
+    out_path = out_dir / "ttt_out.json"
+
+    device = fx.get("device") or "cpu"
+
+    try:
+        res = fn(
+            corpus_path=str(corpus),
+            ckpt_path=str(ckpt),
+            out_path=str(out_path),
+            cfg=cfg_obj,
+            device=device,
+        )
+    except Exception as e:
+        return {
+            "status": "error",
+            "executed": False,
+            "signature": str(sig),
+            "error": f"run_ttt execution failed: {e}",
+        }
+
+    out_sha = _sha256_file(out_path) if out_path.exists() else None
+
+    return {
+        "status": "ok",
+        "executed": True,
+        "signature": str(sig),
+        "inputs": {
+            "corpus_path": str(corpus),
+            "corpus_sha256": _sha256_file(corpus),
+            "ckpt_path": str(ckpt),
+            "ckpt_sha256": _sha256_file(ckpt),
+            "cfg_path": str(cfgp),
+            "cfg_sha256": _sha256_file(cfgp),
+            "device": device,
+        },
+        "output": {
+            "out_path": str(out_path),
+            "out_sha256": out_sha,
+        },
+        "result_type": type(res).__name__,
+    }

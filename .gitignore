@@ -6,3 +6,8 @@ dist/
 build/
 *.egg-info/
 valm_registry.db
+
+# local patch backups
+*.bak
+*.bak.*
+*.pre_*

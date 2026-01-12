@@ -48,7 +48,7 @@ chat:
     class: HFSmallchatBackend
     kwargs:
       base_id: 
-      adapter_dir: 
+Qwen/Qwen2.5-0.5B-Instruct      adapter_dir: 
       device: cpu
       dtype: float32
       trust_remote_code: false

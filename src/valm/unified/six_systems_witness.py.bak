@@ -388,10 +388,6 @@ def _patch_smallchat_action_v2(out, load_witness):
     if not isinstance(sc, dict):
         return
 
-    if "action" not in sc and isinstance(sc.get("status"), str) and "error" in sc:
-        systems["smallchat"] = {"action": dict(sc)}
-        sc = systems["smallchat"]
-
     cur = sc.get("action")
     if not (isinstance(cur, dict) and cur.get("status") == "error" and cur.get("error") == "missing anchor"):
         return

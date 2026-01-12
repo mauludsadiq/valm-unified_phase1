@@ -65,9 +65,9 @@
   },
   "config": {
     "path": "configs/unified.yaml",
-    "sha256": "546960473ad95763b7ac20031b533f62b2b999cd82a5140f919d0cacd9985195"
+    "sha256": "3046a1946e6fdc09a476b4f01f4d165d39adade980445413eafccf16eef311b8"
   },
-  "created_utc": "2026-01-11T17:23:26+00:00",
+  "created_utc": "2026-01-12T08:53:19+00:00",
   "python": {
     "executable": "/Users/g.bogans/Downloads/valm-unified_phase1/.venv/bin/python",
     "platform": "macOS-15.5-arm64-arm-64bit",

@@ -47,8 +47,7 @@ chat:
     module: valm.chat.backends.hf_smallchat
     class: HFSmallchatBackend
     kwargs:
-      base_id: 
-      adapter_dir: 
+      model_id: /Users/g.bogans/Downloads/smallchat-sft-dpo-repo/OUTPUT_DIR_HERE
       device: cpu
       dtype: float32
       trust_remote_code: false
